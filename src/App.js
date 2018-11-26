@@ -1,8 +1,17 @@
 import React, { Component } from "react";
+import Genres from "./Genres";
+import { getGenres, getStationsByGenre } from "./utils/api";
 import "./App.css";
 
 class App extends Component {
+  state = {
+    genres: [],
+    data: []
+  };
+
   componentDidMount() {
+    getGenres().then(({ data }) => this.setState({ genres: data }));
+
     if (!window.RadioPlayer.isInitialized) {
       window.RadioPlayer.initialize();
     }
@@ -23,10 +32,16 @@ class App extends Component {
 
     SpatialNavigation.add("menu", {
       selector: ".nav-item",
-      leaveFor: { up: "@channel1", right: "@channel2" },
+      leaveFor: { up: "@channel1", right: "@channel2", down: "" },
       enterTo: "default-element",
       defaultElement: ".nav-item"
     });
+
+    SpatialNavigation.add("playButton", {
+      selector: "#playButton",
+      leaveFor: { up: "@menu" }
+    });
+
     // Make the *currently existing* navigable elements focusable.
     SpatialNavigation.makeFocusable();
 
@@ -34,185 +49,30 @@ class App extends Component {
     SpatialNavigation.focus(" .focusable");
   }
 
+  componentDidUpdate(prevProp, prevState) {
+    if (prevState.genres !== this.state.genres) {
+      const stations = Promise.all(this.retrieveStations()).then(data => {
+        const obj = data.map((station, i) => ({
+          genre: this.state.genres[i],
+          station
+        }));
+        this.setState({ data: obj });
+      });
+    }
+  }
+
+  retrieveStations = () =>
+    this.state.genres.map(genre => getStationsByGenre(genre.id));
+
   render() {
+    const genres = this.state.data.map(genreObj => (
+      <Genres genreObj={genreObj} />
+    ));
+
     return (
       <div className="App">
         <Navigation />
-        <div class="container">
-          <div id="channel" className="channel-container first">
-            <button
-              className="primary-btn focusable"
-              onClick={() => console.log("clicked")}
-            >
-              Demo
-            </button>
-            <button
-              className="primary-btn focusable second-button"
-              onClick={() => console.log("clicked")}
-            >
-              Demo
-            </button>
-            <button
-              className="primary-btn focusable"
-              onClick={() => console.log("clicked")}
-            >
-              Demo
-            </button>
-            <button
-              className="primary-btn focusable"
-              onClick={() => console.log("clicked")}
-            >
-              Demo
-            </button>
-            <button
-              className="primary-btn focusable"
-              onClick={() => console.log("clicked")}
-            >
-              Demo
-            </button>
-            <button
-              className="primary-btn focusable"
-              onClick={() => console.log("clicked")}
-            >
-              Demo
-            </button>
-            <button
-              className="primary-btn focusable"
-              onClick={() => console.log("clicked")}
-            >
-              Demo
-            </button>
-          </div>
-          <div className="channel-container second">
-            <button className="primary-btn2 focusable">Row Two</button>
-            <button
-              className="primary-btn2 focusable"
-              onClick={() => console.log("clicked 2")}
-            >
-              Row Two
-            </button>
-            <button
-              className="primary-btn2 focusable"
-              onClick={() => console.log("clicked 2")}
-            >
-              Row Two
-            </button>
-            <button
-              className="primary-btn2 focusable"
-              onClick={() => console.log("clicked 2")}
-            >
-              Row Two
-            </button>
-            <button
-              className="primary-btn2 focusable"
-              onClick={() => console.log("clicked 2")}
-            >
-              Row Two
-            </button>
-            <button
-              className="primary-btn2 focusable"
-              onClick={() => console.log("clicked 2")}
-            >
-              Row Two
-            </button>
-            <button
-              className="primary-btn2 focusable"
-              onClick={() => console.log("clicked 2")}
-            >
-              Row Two
-            </button>
-          </div>
-
-          <div id="channel3" className="channel-container channel3">
-            <button
-              className="primary-btn3 focusable"
-              onClick={() => console.log("clicked 3")}
-            >
-              Row 3s
-            </button>
-            <button
-              className="primary-btn3 focusable"
-              onClick={() => console.log("clicked 3")}
-            >
-              Row 3s
-            </button>
-            <button
-              className="primary-btn3 focusable"
-              onClick={() => console.log("clicked 3")}
-            >
-              Row 3s
-            </button>
-            <button
-              className="primary-btn3 focusable"
-              onClick={() => console.log("clicked 3")}
-            >
-              Row 3s
-            </button>
-            <button
-              className="primary-btn3 focusable"
-              onClick={() => console.log("clicked 3")}
-            >
-              Row 3s
-            </button>
-            <button
-              className="primary-btn3 focusable"
-              onClick={() => console.log("clicked")}
-            >
-              Row 3s
-            </button>
-            <button
-              className="primary-btn3 focusable"
-              onClick={() => console.log("clicked")}
-            >
-              Row 3s
-            </button>
-          </div>
-
-          <div className="channel-container">
-            <button
-              className="primary-btn4 focusable"
-              onClick={() => console.log("clicked 4")}
-            >
-              Row 4s
-            </button>
-            <button
-              className="primary-btn4 focusable"
-              onClick={() => console.log("clicked 4")}
-            >
-              Row 4s
-            </button>
-            <button
-              className="primary-btn4 focusable"
-              onClick={() => console.log("clicked 4")}
-            >
-              Row 4s
-            </button>
-            <button
-              className="primary-btn4 focusable"
-              onClick={() => console.log("clicked 4")}
-            >
-              Row 4s
-            </button>
-            <button
-              className="primary-btn4 focusable"
-              onClick={() => console.log("clicked 4")}
-            >
-              Row 4s
-            </button>
-            <button
-              className="primary-btn4 focusable"
-              onClick={() => console.log("clicked 4")}
-            >
-              Row 4s
-            </button>
-            <button
-              className="primary-btn4 focusable"
-              onClick={() => console.log("clicked 4")}
-            >
-              Row 4s
-            </button>
-          </div>
-        </div>
+        <div class="container">{genres}</div>
       </div>
     );
   }
