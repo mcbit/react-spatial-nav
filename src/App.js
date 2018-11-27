@@ -1,45 +1,28 @@
 import React, { Component } from "react";
 import Genres from "./Genres";
+import RadioPlayer from "./RadioPlayer";
 import { getGenres, getStationsByGenre } from "./utils/api";
 import "./App.css";
 
 class App extends Component {
   state = {
     genres: [],
-    data: []
+    data: [],
+    station: null
   };
 
   componentDidMount() {
     getGenres().then(({ data }) => this.setState({ genres: data }));
 
-    if (!window.RadioPlayer.isInitialized) {
-      window.RadioPlayer.initialize();
-    }
+    // if (!window.RadioPlayer.isInitialized) {
+    //   window.RadioPlayer.initialize();
+    // }
     const SpatialNavigation = window.SpatialNavigation;
-
-    SpatialNavigation.add(`channel${"1"}`, {
-      selector: ".first .focusable",
-      leaveFor: { right: `channel${"1"}`, up: "@menu" },
-      enterTo: "default-element",
-      defaultElement: ".second-button"
-    });
-
-    SpatialNavigation.add("channel2", {
-      selector: ".second .focusable",
-      enterTo: "default-element",
-      defaultElement: ".focusable"
-    });
 
     SpatialNavigation.add("menu", {
       selector: ".nav-item",
-      leaveFor: { up: "@channel1", right: "@channel2", down: "" },
       enterTo: "default-element",
       defaultElement: ".nav-item"
-    });
-
-    SpatialNavigation.add("playButton", {
-      selector: "#playButton",
-      leaveFor: { up: "@menu" }
     });
 
     // Make the *currently existing* navigable elements focusable.
@@ -61,18 +44,27 @@ class App extends Component {
     }
   }
 
+  updateStation = station => {
+    this.setState({ station }, () => console.log("stateupdated"));
+  };
+
   retrieveStations = () =>
     this.state.genres.map(genre => getStationsByGenre(genre.id));
 
   render() {
-    const genres = this.state.data.map(genreObj => (
-      <Genres genreObj={genreObj} />
+    const genres = this.state.data.map((genreObj, index) => (
+      <Genres
+        index={index}
+        genreObj={genreObj}
+        updateStation={this.updateStation}
+      />
     ));
 
     return (
       <div className="App">
         <Navigation />
         <div class="container">{genres}</div>
+        {this.state.station && <RadioPlayer station={this.state.station} />}
       </div>
     );
   }

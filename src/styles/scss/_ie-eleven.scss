@@ -1,0 +1,27 @@
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    // ie10 and ie11 CSS here
+    #playerContainer {
+        #radioPlayerContainer {
+            &.minimized {
+                &.showA {
+                    #radioPlayer {
+                        #right {
+                            .dfpAdElement {
+                                right: 130px;
+                            }
+                        }
+                    }
+                }
+                #radioPlayer {
+                    #right {
+                        .toggleContainer {
+                            #toggleMinimizeButton {
+                                top: 42px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

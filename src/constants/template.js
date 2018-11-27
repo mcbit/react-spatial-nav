@@ -1,0 +1,12 @@
+export const TEMPLATE_ID = 'radio-player-template';
+export const PLAYER_CONTAINER_ID = 'playerContainer';
+export const RADIO_PLAYER_CONTAINER_ID = 'radioPlayerContainer';
+export const TOGGLE_MINIMIZE_BUTTON_ID = 'toggleMinimizeButton';
+export const TEMPLATE_TYPE = 'text/x-handlebars-template';
+export const POPUP_CLASS = 'popup';
+export const MINIMIZED_CLASS = 'minimized';
+export const SHOW_AD_CLASS = 'showA';
+export const SHOW_INTERACTIVE_PLAYER_CLASS = 'showInteractivePlayer';
+export const SHOW_TIMELINE_CLASS = 'showTimeline';
+export const HIDE_TIMELINE_CLASS = 'hideTimeline';
+export const TIMELINE_CONTAINER_ID = 'timelineContainer';

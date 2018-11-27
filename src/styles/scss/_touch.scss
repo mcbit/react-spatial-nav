@@ -1,0 +1,59 @@
+@media (hover: none), (pointer: coarse) {
+    #playerContainer {
+        #radioPlayerContainer {
+            #radioPlayer {
+                #controls {
+
+                    #playButton {
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    #prevButton {
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    #nextButton {
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    #forwardButton {
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    #rewindButton {
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+                #right {
+                    #muteButton {
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    #toggleMinimizeButton {
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,93 @@
+// Tablet view
+@media only screen and (min-width: 640px) and (max-width: 767px) {
+    #playerContainer {
+        #radioPlayerContainer {
+            #station {
+                #info {
+                    #stationNameContainer {
+                        width: 144px;
+
+                        #stationNameWrapper {
+                            max-width: 131px;
+                            
+                            #stationName {
+                                
+                            }
+                        }
+                    }
+
+                    #showNameContainer {
+                        #showNameWrapper {
+                            max-width: 144px;
+                            #showName {
+                            }
+                        }
+                    }
+
+                    #showDescriptionContainer {
+                        #showDescriptionWrapper {
+                            max-width: 144px;
+                            #showDescription {
+                            }
+                        }
+                    }
+
+                    #titleArtistContainer {
+                        #titleArtistWrapper {
+                            max-width: 144px;
+                            #titleArtist {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    #playerContainer {
+        #radioPlayerContainer {
+            #station {
+                #info {
+                    #stationNameContainer {
+                        width: 208px;
+
+                        #stationNameWrapper {
+                            max-width: 195px;
+
+                            #stationName {
+                                
+                            }
+                        }
+                    }
+
+                    #showNameContainer {
+                        #showNameWrapper {
+                            max-width: 208px;
+                            #showName {
+                            
+                            }
+                        }
+                    }
+
+                    #showDescriptionContainer {
+                        #showDescriptionWrapper {
+                            max-width: 208px;
+                            #showDescription {
+                            }
+                        }
+                    }
+
+                    #titleArtistContainer {
+                        #titleArtistWrapper {
+                            max-width: 208px;
+                            #titleArtist {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
