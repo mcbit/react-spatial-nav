@@ -1,10 +1,29 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { Link, Switch, Route } from "react-router-dom";
 import Genres from "./Genres";
+import Settings from "./components/setting";
 import RadioPlayer from "./RadioPlayer";
 import { getGenres, getStationsByGenre } from "./utils/api";
 import "./App.css";
 
 class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Navigation />
+        <Switch>
+          <Route path="/settings" component={Settings} />
+          <Route exact path="/" component={Home} />
+          <Route path="/" componen={Home} />
+        </Switch>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+class Home extends Component {
   state = {
     genres: [],
     data: [],
@@ -59,39 +78,31 @@ class App extends Component {
         updateStation={this.updateStation}
       />
     ));
-
     return (
-      <div className="App">
-        <Navigation />
+      <Fragment>
         <div class="container">{genres}</div>
         {this.state.station && <RadioPlayer station={this.state.station} />}
-      </div>
+      </Fragment>
     );
   }
 }
-
-export default App;
-
 class Navigation extends Component {
   render() {
     return (
       <div>
         <ul className="navigation-container">
-          <li className="nav-item">
-            <a href="#" class="nav-link">
-              item 1
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" class="nav-link">
-              item 2
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" class="nav-link">
-              item 3
-            </a>
-          </li>
+          <Link to="/" className="nav-item nav-link">
+            Search
+          </Link>
+          <Link to="/stations" className="nav-item nav-link">
+            Stations
+          </Link>
+          <Link to="/settings" className="nav-item nav-link">
+            Settings
+          </Link>
+          <Link to="/player" className="nav-item nav-link">
+            Player
+          </Link>
         </ul>
       </div>
     );

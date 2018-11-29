@@ -78,7 +78,7 @@ export default class TemplateView {
     this.toggleMinimizeButton.classList.remove("minimized");
     this.radioPlayerContainer.classList.remove("minimized");
     this.stationEl.classList.remove("hide");
-    this.volumeControlEl.classList.remove("hide");
+    //this.volumeControlEl.classList.remove("hide");
     this.prevEl.classList.remove("hide");
     this.nextEl.classList.remove("hide");
     this.forwardButton.classList.remove("hide");
@@ -93,7 +93,7 @@ export default class TemplateView {
     this.toggleMinimizeButton.classList.add("minimized");
     this.radioPlayerContainer.classList.add("minimized");
     this.stationEl.classList.add("hide");
-    this.volumeControlEl.classList.add("hide");
+    //this.volumeControlEl.classList.add("hide");
     this.prevEl.classList.add("hide");
     this.nextEl.classList.add("hide");
     this.forwardButton.classList.add("hide");
