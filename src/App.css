@@ -8,7 +8,7 @@
 .primary-btn {
   width: 400px;
   height: 400px;
-  margin-right: 50px;
+  /* margin-right: 50px; */
   flex-shrink: 0;
 }
 
@@ -30,6 +30,11 @@
 .App {
   /* display: flex; */
   /* flex-direction: column; */
+}
+
+.channel-container .owl-item {
+  /* max-width: 400px !important; */
+  /* margin: 0 10px; */
 }
 
 .nav-item {

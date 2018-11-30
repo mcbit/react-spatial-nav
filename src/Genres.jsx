@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import $ from "jquery";
+import "owl.carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
 import "./App.css";
-// import "owl.carousel/dist/assets/owl.carousel.css";
-// import "owl.carousel";
 
 const SpatialNavigation = window.SpatialNavigation;
 class Genres extends Component {
+  state = {
+    currentIndex: 0
+  };
   componentDidMount() {
     const selector = `.primary-btn-${this.props.index}`;
 
@@ -19,23 +23,38 @@ class Genres extends Component {
       }
     });
 
-    // $(document).ready(function() {
-    //   $(".owl-carousel").owlCarousel();
-    // });
+    $(document).ready(() => {
+      $(`.channel-container-${this.props.index}`).owlCarousel({
+        autoWidth: true,
+        margin: 10
+      });
+    });
   }
 
-  onStationFocus = e => {
-    console.log("FOCUS");
+  onStationFocus = (e, index) => {
+    const owl = $(`.channel-container-${this.props.index}`);
 
-    const stationContainer = document.getElementById(
-      `channel-${this.props.index}`
-    );
-    const currentStation = document.getElementById(e.target.id);
+    if (this.state.currentIndex < index) {
+      owl.trigger("next.owl.carousel");
+    } else {
+      owl.trigger("prev.owl.carousel");
+    }
 
-    const xVal = currentStation.offsetLeft;
+    this.setState({
+      currentIndex: index
+    });
 
-    stationContainer.style.transition = "0.5s ease-out";
-    stationContainer.style.transform = "translateX(-" + xVal + "px)";
+    // console.log("FOCUS ", owl);
+
+    // const stationContainer = document.getElementById(
+    //   `channel-${this.props.index}`
+    // );
+    // const currentStation = document.getElementById(e.target.id);
+
+    // const xVal = currentStation.offsetLeft;
+
+    // stationContainer.style.transition = "0.5s ease-out";
+    // stationContainer.style.transform = "translateX(-" + xVal + "px)";
   };
 
   render() {
@@ -78,7 +97,7 @@ const Station = props => {
   const { station } = props;
   return station ? (
     <button
-      onFocus={props.onStationFocus}
+      onFocus={e => props.onStationFocus(e, props.stationIndex)}
       id={`primary-btn-${props.rowIndex}${props.stationIndex}`}
       className={`primary-btn primary-btn-${props.rowIndex} focusable`}
       onClick={() => props.updateStation(station)}
